@@ -30,8 +30,9 @@ function FuncCom(props) {
 }
 const jsx = (<div className="dom">
     <div className='dd'>我是div组件</div>
-    <ClassCom name='class组件' />
     <FuncCom name='function组件' />
+    <ClassCom name='class组件' />
+
 </div>)
 
 ReactDOM.render(jsx, document.getElementById('root'));

@@ -8,7 +8,4 @@ function render(vnode, container) {
 
 }
 const ReactDOM = { render }
-export default {
-    ReactDOM,
-    render
-}
+export default ReactDOM
