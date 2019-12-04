@@ -1,11 +1,11 @@
 import { Children } from "react";
 
-//把vnode变成node
+//虚拟dom处理成真实dom
 export function initVnode(vnode, container) {
-    //查看vode解构区分节点渲染方式
     let node = null;
     const { vtype } = vnode
     if (!vtype) {
+        //文本
         node = initTexNode(vnode, container);
     }
     if (vtype === 1) {
@@ -13,9 +13,11 @@ export function initVnode(vnode, container) {
         node = initHtmlNode(vnode, container);
     }
     if (vtype === 2) {
+        //类组件
         node = initClassNode(vnode, container)
     }
     if (vtype === 3) {
+        //函数组件
         node = initFunctionNode(vnode, container)
     }
     return node
@@ -47,7 +49,10 @@ function initFunctionNode(vnode, container) {
     const { type, props } = vnode
     //函数的虚拟dom,执行函数后返回node
     const vfnode = type(props)
-    //真实node
+    /* 真实node，此处为什么没有直接返回vfnode，
+     * 而是再次调用了initVnode呢?由于函数内存在文本，
+     * 原生标签、嵌套等，需要进行递归处理
+     */
     return initVnode(vfnode, container)
 }
 //把class变成node
@@ -55,6 +60,10 @@ function initClassNode(vnode, container) {
     const { type, props } = vnode
     const cmp = new type(props)
     const vcnode = cmp.render()
+    /* 真实node，此处为什么没有直接返回vcnode，
+     * 而是再次调用了initVnode呢?由于函数内存在文本，
+     * 原生标签、嵌套等，需要进行递归处理
+     */
     const node = initVnode(vcnode, container)
     let cache = {
         vnode: vcnode,//当前的虚拟dom节点，用于diff

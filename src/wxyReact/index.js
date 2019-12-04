@@ -1,6 +1,8 @@
 
 import { diff } from './diff'
-
+/*通过babel-loader编译把jsx处理成
+createElement函数,此函数接收三个参数
+*/
 function createElement(type, props, ...children) {
     console.log("TCL: createElement -> props", props)
     //返回虚拟dom
