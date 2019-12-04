@@ -32,7 +32,7 @@ const jsx = (<div className="dom">
     <div className='dd'>我是div组件</div>
     <FuncCom name='function组件' />
     <ClassCom name='class组件' />
-
+    {[1, 2, 3].map(one => `第${one}个、`)}
 </div>)
 
 ReactDOM.render(jsx, document.getElementById('root'));

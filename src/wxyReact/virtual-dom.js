@@ -32,7 +32,14 @@ function initHtmlNode(vnode, container) {
     const { children, ...rest } = props
     const node = document.createElement(type)
     props.children.map(item => {
-        node.appendChild(initVnode(item, node))
+        //添加数组判断
+        if (Array.isArray(item)) {
+            for (let i of item) {
+                node.appendChild(initVnode(i, node))
+            }
+        } else {
+            node.appendChild(initVnode(item, node))
+        }
     })
     //添加标签属性
     Object.keys(rest).map(key => {
