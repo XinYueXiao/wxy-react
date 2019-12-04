@@ -45,7 +45,7 @@ function initHtmlNode(vnode, container) {
 }
 function initFunctionNode(vnode, container) {
     const { type, props } = vnode
-    //函数的虚拟dom
+    //函数的虚拟dom,执行函数后返回node
     const vfnode = type(props)
     //真实node
     return initVnode(vfnode, container)
